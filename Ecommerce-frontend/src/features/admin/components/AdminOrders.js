@@ -8,7 +8,7 @@ import {
 } from "../../order/orderSlice";
 import { XMarkIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 function AdminOrders() {
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
   const [editableOrderId, setEditableOrderId] = useState(-1);
@@ -52,11 +52,11 @@ function AdminOrders() {
         return "bg-purple-200 text-purple-600";
     }
   };
-  useEffect(() => {
-    const pagination = { _page: page, _per_page: ITEMS_PER_PAGE };
+  // useEffect(() => {
+  //   const pagination = { _page: page, _per_page: ITEMS_PER_PAGE };
 
-    dispatch(fetchAllOrdersAsync(pagination));
-  }, [dispatch, page]);
+  //   dispatch(fetchAllOrdersAsync(pagination));
+  // }, [dispatch, page]);
   // useEffect(() => {
   //   dispatch(fetchAllOrdersAsync());
   //   //todo: server will filter deleted products
