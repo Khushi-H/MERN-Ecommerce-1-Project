@@ -17,7 +17,7 @@ export function loginUser(loginInfo) {
     try {
       //const response = await fetch("/auth/login", {
       // આ ફ્રન્ટએન્ડની લિંક છે, જે ખોટી છે
-const response = await fetch('https://ecommerce-frontend-delta-silk.vercel.app/auth/login', { 
+const response = await fetch('https://ecommerce-backend-omega-liard.vercel.app/auth/login', { 
         method: "POST",
         body: JSON.stringify(loginInfo),
         headers: { "content-type": "application/json" },
