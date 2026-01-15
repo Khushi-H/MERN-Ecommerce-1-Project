@@ -3,9 +3,12 @@ const { Product } = require("../model/Product");
 exports.createProduct = async (req, res) => {
   // this product we have to get from API body
   const product = new Product(req.body);
-  product.discountPrice = Math.round(
-    product.price * (1 - product.discountPercentage / 100)
-  );
+  // product.discountPrice = Math.round(
+  //   product.price * (1 - product.discountPercentage / 100)
+  //);
+  // જો ફ્રન્ટએન્ડમાંથી discountPrice ન આવતી હોય તો અહીં ગણો
+product.discountPrice = Math.round(product.price * (1 - product.discountPercentage / 100));
+await product.save();
   try {
     const doc = await product.save();
     res.status(201).json(doc);
@@ -72,18 +75,45 @@ exports.fetchProductById = async (req, res) => {
   }
 };
 
+// exports.updateProduct = async (req, res) => {
+//   const { id } = req.params;
+//   try {
+//     const product = await Product.findByIdAndUpdate(id, req.body, {
+//       new: true,
+//     });
+//     product.discountPrice = Math.round(
+//       product.price * (1 - product.discountPercentage / 100)
+//     );
+//     const updatedProduct = await product.save();
+//     res.status(200).json(updatedProduct);
+//   } catch (err) {
+//     res.status(400).json(err);
+//   }
+// };
+
+
 exports.updateProduct = async (req, res) => {
   const { id } = req.params;
   try {
+    // પહેલા discountPrice ની ગણતરી req.body માં જ કરી લો
+    if (req.body.price && req.body.discountPercentage) {
+      req.body.discountPrice = Math.round(
+        req.body.price * (1 - req.body.discountPercentage / 100)
+      );
+    }
+
+    // ફક્ત findByIdAndUpdate નો ઉપયોગ કરો, .save() ની જરૂર નથી
     const product = await Product.findByIdAndUpdate(id, req.body, {
-      new: true,
+      new: true, // આનાથી અપડેટ થયેલો ડેટા રિટર્ન મળશે
     });
-    product.discountPrice = Math.round(
-      product.price * (1 - product.discountPercentage / 100)
-    );
-    const updatedProduct = await product.save();
-    res.status(200).json(updatedProduct);
+
+    if (!product) {
+       return res.status(404).json({ message: "product not found" });
+    }
+
+    res.status(200).json(product);
   } catch (err) {
+    console.log("Update Error:", err);
     res.status(400).json(err);
   }
 };

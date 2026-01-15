@@ -113,7 +113,7 @@ export default function ProductDetail() {
           </nav>
 
           {/* Image gallery */}
-          <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+          {/* <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
             <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
               <img
                 src={product.images[0]}
@@ -144,7 +144,47 @@ export default function ProductDetail() {
                 className="h-full w-full object-cover object-center"
               />
             </div>
-          </div>
+          </div> */}
+
+          {/* Image gallery */}
+<div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+  <div className="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+    <img
+      src={product.images[0]}
+      alt={product.title}
+      className="h-full w-full object-cover object-center"
+    />
+  </div>
+  <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
+   
+    {product.images[1] && (
+      <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+        <img
+          src={product.images[1]}
+          alt={product.title}
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+    )}
+   
+    {product.images[2] && (
+      <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
+        <img
+          src={product.images[2]}
+          alt={product.title}
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+    )}
+  </div>
+  <div className="aspect-h-5 aspect-w-4 lg:aspect-h-4 lg:aspect-w-3 sm:overflow-hidden sm:rounded-lg">
+    <img
+      src={product.images[3] || product.images[0]} 
+      alt={product.title}
+      className="h-full w-full object-cover object-center"
+    />
+  </div>
+</div>
 
           {/* Product info */}
           <div className="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
@@ -157,18 +197,30 @@ export default function ProductDetail() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-xl line-through tracking-tight text-gray-900">
+              {/* <p className="text-xl line-through tracking-tight text-gray-900">
                 ${product.price}
               </p>
               <p className="text-3xl tracking-tight text-gray-900">
                 ${product.discountPrice}
-              </p>
+              </p> */}
+
+              {/* Original Price */}
+<p className="text-xl line-through tracking-tight text-gray-500">
+  ${product.price}
+</p>
+
+{/* Discounted Price */}
+<p className="text-3xl tracking-tight text-gray-900">
+  ${product.discountPrice 
+    ? product.discountPrice 
+    : Math.round(product.price * (1 - product.discountPercentage / 100))}
+</p>
               {/* Reviews */}
               <div className="mt-6">
                 <h3 className="sr-only">Reviews</h3>
                 <div className="flex items-center">
                   <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
+                    {/* {[0, 1, 2, 3, 4].map((rating) => (
                       <StarIcon
                         key={rating}
                         className={classNames(
@@ -179,7 +231,19 @@ export default function ProductDetail() {
                         )}
                         aria-hidden="true"
                       />
-                    ))}
+                    ))} */}
+                    {[0, 1, 2, 3, 4].map((rating) => (
+  <StarIcon
+    key={rating}
+    className={classNames(
+      Math.round(product.rating) > rating 
+        ? "text-gray-900"
+        : "text-gray-200",
+      "h-5 w-5 flex-shrink-0"
+    )}
+    aria-hidden="true"
+  />
+))}
                   </div>
                   <p className="sr-only">{product.rating} out of 5 stars</p>
                 </div>
@@ -337,7 +401,7 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              {product.highlights && (
+              {/* {product.highlights && (
                 <div className="mt-10">
                   <h3 className="text-sm font-medium text-gray-900">
                     Highlights
@@ -356,7 +420,23 @@ export default function ProductDetail() {
                     </ul>
                   </div>
                 </div>
-              )}
+              )} */}
+
+              
+{product.tags && (
+  <div className="mt-10">
+    <h3 className="text-sm font-medium text-gray-900">Highlights</h3>
+    <div className="mt-4">
+      <ul role="list" className="list-disc space-y-2 pl-4 text-sm">
+        {product.tags.map((highlight) => (
+          <li key={highlight} className="text-gray-400">
+            <span className="text-gray-600">{highlight}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+)}
 
               <div className="mt-10">
                 <h2 className="text-sm font-medium text-gray-900">Details</h2>

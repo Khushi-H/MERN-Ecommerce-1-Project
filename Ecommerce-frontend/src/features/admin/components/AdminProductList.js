@@ -488,8 +488,11 @@ function ProductGrid({ products }) {
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm block font-medium text-gray-900">
+                      {/* <p className="text-sm block font-medium text-gray-900">
                         ${product.discountPrice}
+                      </p> */}
+                      <p className="text-sm block font-medium text-gray-900">
+                        ${product.discountPrice ? product.discountPrice : product.price}
                       </p>
                       <p className="text-sm block line-through font-medium text-gray-400">
                         ${product.price}
@@ -504,13 +507,31 @@ function ProductGrid({ products }) {
                 </div>
               </Link>
 
-              <div className="mt-5">
+              {/* <div className="mt-5">
                 <Link
                   to={`/admin/product-form/edit/${product.id}`}
                   className="rounded-md my-5 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
                   Edit Product
                 </Link>
+              </div> */}
+              <div className="mt-5">
+                
+                {!product.deleted ? (
+                  <Link
+                    to={`/admin/product-form/edit/${product.id}`}
+                    className="rounded-md my-5 bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  >
+                    Edit Product
+                  </Link>
+                ) : (
+                  <button
+                    disabled
+                    className="rounded-md my-5 bg-gray-400 px-3 py-2 text-sm font-semibold text-white cursor-not-allowed"
+                  >
+                    Product Deleted
+                  </button>
+                )}
               </div>
             </div>
           ))}

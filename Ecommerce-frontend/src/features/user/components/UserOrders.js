@@ -50,9 +50,12 @@ export default function UserOrders() {
                                     {item.product.title}
                                   </a>
                                 </h3>
-                                <p className="ml-4">
+                                {/* <p className="ml-4">
                                   ${item.product.discountPrice}
-                                </p>
+                                </p> */}
+                                <p className="ml-4">
+  ${item.product.discountPrice ? item.product.discountPrice : item.product.price}
+</p>
                               </div>
                               <p className="mt-1 text-sm text-gray-500">
                                 {item.product.brand}

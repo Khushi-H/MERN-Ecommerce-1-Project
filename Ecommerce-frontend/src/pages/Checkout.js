@@ -35,10 +35,21 @@ function Checkout() {
   const items = useSelector(selectItems);
   const currentOrder = useSelector(selectCurrentOrder);
   const status = useSelector(selectStatus);
-  const totalAmount = items.reduce(
-    (amount, item) => item.product.discountPrice * item.quantity + amount,
-    0
-  );
+  // const totalAmount = items.reduce(
+  //   (amount, item) => item.product.discountPrice * item.quantity + amount,
+  //   0
+  // );
+  // જો discountedPrice ફંક્શન અવેલેબલ હોય તો:
+// જૂનો કોડ બદલીને આ લખો:
+const totalAmount = items.reduce(
+  (amount, item) => {
+    // જો discountPrice ન હોય તો price અને percentage પરથી ગણતરી કરો
+    const price = item.product.discountPrice || 
+                  Math.round(item.product.price * (1 - item.product.discountPercentage / 100));
+    return price * item.quantity + amount;
+  },
+  0
+);
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [paymentMethod, setPaymentMethod] = useState(null);
@@ -48,10 +59,16 @@ function Checkout() {
   const handleRemove = (e, id) => {
     dispatch(deleteItemFromCartAsync(id));
   };
+  // const handleAddress = (e) => {
+  //   console.log(e.target.value);
+  //   setSelectedAddress(user.addresses[e.target.value]);
+  // };
   const handleAddress = (e) => {
-    console.log(e.target.value);
+  console.log(e.target.value);
+  if (user && user.addresses) {
     setSelectedAddress(user.addresses[e.target.value]);
-  };
+  }
+};
   const handlePayment = (e) => {
     console.log(e.target.value);
     setPaymentMethod(e.target.value);
@@ -73,7 +90,12 @@ function Checkout() {
       alert("Enter Address and Payment method");
     }
   };
+  
+if (!user) {
+  return <Grid visible={true} height="80" width="80" color="rgb(79,70,229)" />;
+}
   return (
+    
     <>
       {!items.length && <Navigate to="/" replace={true}></Navigate>}
       {currentOrder && currentOrder.paymentMethod === "cash" && (
@@ -87,6 +109,7 @@ function Checkout() {
       )}
 
       {status === "loading" ? (
+        
         <Grid
           visible={true}
           height="80"
@@ -315,7 +338,8 @@ function Checkout() {
                   Choose from Existing addresses
                 </p>
                 <ul role="list">
-                  {user.addresses.map((address, index) => (
+                  {/* {user.addresses.map((address, index) => ( */}
+                  {user && user.addresses && user.addresses.map((address, index) => (
                     <li
                       key={index}
                       className="flex justify-between gap-x-6 px-5 py-5 border-solid border-2 border-gray-200"
@@ -424,9 +448,15 @@ function Checkout() {
                                     {item.product.title}
                                   </a>
                                 </h3>
-                                <p className="ml-4">
+                                {/* <p className="ml-4">
                                   ${item.product.discountPrice}
-                                </p>
+                                </p> */}
+                                {/* જૂનો કોડ: <p className="ml-4">${item.product.discountPrice}</p> */}
+
+<p className="ml-4">
+  ${item.product.discountPrice || 
+    Math.round(item.product.price * (1 - item.product.discountPercentage / 100))}
+</p>
                               </div>
                               <p className="mt-1 text-sm text-gray-500">
                                 {item.product.brand}

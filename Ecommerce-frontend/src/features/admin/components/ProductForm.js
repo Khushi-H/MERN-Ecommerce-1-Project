@@ -121,18 +121,38 @@ function ProductForm() {
             product.highlight1,
             product.highlight2,
             product.highlight3,
-            product.thumbnail,
+            product.highlight4,
           ];
           product.rating = 0;
-          product.colors = product.colors.map((color) =>
-            colors.find((clr) => clr.id === color)
-          );
-          product.sizes = product.sizes.map((size) =>
-            sizes.find((sz) => sz.id === size)
-          );
+          // product.colors = product.colors.map((color) =>
+          //   colors.find((clr) => clr.id === color)
+          // );
+          // product.sizes = product.sizes.map((size) =>
+          //   sizes.find((sz) => sz.id === size)
+          // );
+          // જો colors સિલેક્ટ કરેલા હોય તો જ map કરવું
+  // if (product.colors && Array.isArray(product.colors)) {
+  //   product.colors = product.colors.map((color) =>
+  //     colors.find((clr) => clr.id === color)
+  //   ).filter(Boolean); // જો ન મળે તો null કાઢી નાખશે
+  // } else {
+  //   product.colors = selectedProduct.colors; // જો ન બદલ્યા હોય તો જૂના રાખવા
+  // }
+
+  // if (product.sizes && Array.isArray(product.sizes)) {
+  //   product.sizes = product.sizes.map((size) =>
+  //     sizes.find((sz) => sz.id === size)
+  //   ).filter(Boolean);
+  // } else {
+  //   product.sizes = selectedProduct.sizes; // જો ન બદલ્યા હોય તો જૂના રાખવા
+  // }
           delete product["image1"];
           delete product["image2"];
           delete product["image3"];
+          delete product["highlight1"];
+  delete product["highlight2"];
+  delete product["highlight3"];
+  delete product["highlight4"];
           product.price = +product.price;
 
           product.stock = +product.stock;
@@ -214,26 +234,29 @@ function ProductForm() {
                 </label>
                 <div className="mt-2">
                   <select
-                    {...register("brand", { required: "brand is required" })}
+                    {...register("brand", { 
+                      //required: "brand is required" 
+                      })}
                   >
                     <option value="">--choose brand--</option>
                     {brands.map((brand) => (
                       <option key={brand.value} value={brand.value}>
                         {brand.label}
                       </option>
-                    ))}
+                    ))} 
+                   
                   </select>
                 </div>
               </div>
-              <div className="col-span-full">
-                <label
+              {/* <div className="col-span-full"> */}
+                {/* <label
                   htmlFor="colors"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Colors
-                </label>
-                <div className="mt-2">
-                  {colors.map((color) => (
+                </label> */}
+                {/* <div className="mt-2"> */}
+                  {/* {colors.map((color) => (
                     <>
                       <input
                         type="checkbox"
@@ -243,18 +266,29 @@ function ProductForm() {
                       />
                       {color.name}
                     </>
-                  ))}
-                </div>
-              </div>
-              <div className="col-span-full">
-                <label
+                  ))} */}
+
+                  {/* {colors.map((color) => (
+  <span key={color.id}> 
+    <input
+      type="checkbox"
+      {...register("colors", {})}
+      value={color.id}
+    />
+    {color.name}
+  </span>
+))} */}
+                {/* </div> */}
+              {/* </div> */}
+              {/* <div className="col-span-full"> */}
+                {/* <label
                   htmlFor="sizes"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
                   Sizes
-                </label>
-                <div className="mt-2">
-                  {sizes.map((size) => (
+                </label> */}
+                {/* <div className="mt-2"> */}
+                  {/* {sizes.map((size) => (
                     <>
                       <input
                         type="checkbox"
@@ -264,9 +298,19 @@ function ProductForm() {
                       />
                       {size.name}
                     </>
-                  ))}
-                </div>
-              </div>
+                  ))} */}
+                  {/* {sizes.map((size) => (
+  <span key={size.id}> 
+    <input
+      type="checkbox"
+      {...register("sizes", {})}
+      value={size.id}
+    />
+    {size.name}
+  </span>
+))} */}
+                {/* </div> */}
+              {/* </div> */}
               <div className="col-span-full">
                 <label
                   htmlFor="category"
@@ -277,7 +321,7 @@ function ProductForm() {
                 <div className="mt-2">
                   <select
                     {...register("category", {
-                      required: "category is required",
+                      //required: "category is required",
                     })}
                   >
                     <option value="">--choose category--</option>
@@ -285,7 +329,8 @@ function ProductForm() {
                       <option key={category.value} value={category.value}>
                         {category.label}
                       </option>
-                    ))}
+                    ))} 
+                   
                   </select>
                 </div>
               </div>
@@ -411,7 +456,7 @@ function ProductForm() {
                     <input
                       type="text"
                       {...register("image2", {
-                        required: "image2 is required",
+                        //required: "image2 is required",
                       })}
                       id="image2"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
@@ -431,7 +476,7 @@ function ProductForm() {
                     <input
                       type="text"
                       {...register("image3", {
-                        required: "image3 is required",
+                        //required: "image3 is required",
                       })}
                       id="image3"
                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"

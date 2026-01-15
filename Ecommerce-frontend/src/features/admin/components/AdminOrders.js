@@ -8,7 +8,7 @@ import {
 } from "../../order/orderSlice";
 import { XMarkIcon, EyeIcon, PencilIcon } from "@heroicons/react/24/outline";
 function AdminOrders() {
-  const [page, setPage] = useState(1);
+  //const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const orders = useSelector(selectOrders);
   const [editableOrderId, setEditableOrderId] = useState(-1);
@@ -52,15 +52,16 @@ function AdminOrders() {
         return "bg-purple-200 text-purple-600";
     }
   };
-  useEffect(() => {
-    const pagination = { _page: page, _per_page: ITEMS_PER_PAGE };
-
-    dispatch(fetchAllOrdersAsync(pagination));
-  }, [dispatch, page]);
   // useEffect(() => {
-  //   dispatch(fetchAllOrdersAsync());
-  //   //todo: server will filter deleted products
-  // }, [dispatch]);
+  //   const pagination = { _page: page, _per_page: ITEMS_PER_PAGE };
+
+  //   dispatch(fetchAllOrdersAsync(pagination));
+  // }, [dispatch, page]);
+
+  useEffect(() => {
+    dispatch(fetchAllOrdersAsync());
+    //todo: server will filter deleted products
+  }, [dispatch]);
   return (
     <>
       {/* component */}
@@ -86,7 +87,7 @@ function AdminOrders() {
                     <th className="py-3 px-0 text-center">Order Time</th>
                     <th className="py-3 px-0 text-center">Last Updated</th>
 
-                    <th className="py-3 px-0 text-center">Actions</th>
+                    {/* <th className="py-3 px-0 text-center">Actions</th> */}
                   </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
@@ -193,7 +194,7 @@ function AdminOrders() {
                         </div>
                       </td>
 
-                      <td className="py-3 px-0 text-center">
+                      {/* <td className="py-3 px-0 text-center">
                         <div className="flex item-center justify-center">
                           <div className="w-6 mr-4 transform hover:text-purple-500 hover:scale-120">
                             <EyeIcon
@@ -208,7 +209,7 @@ function AdminOrders() {
                             ></PencilIcon>
                           </div>
                         </div>
-                      </td>
+                      </td> */}
                     </tr>
                   ))}
                 </tbody>
