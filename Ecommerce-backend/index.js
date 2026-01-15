@@ -76,18 +76,38 @@ opts.secretOrKey = process.env.JWT_SECRET_KEY;
 //middlewares
 server.use(express.static(path.resolve(__dirname, "build")));
 server.use(cookieParser());
+// server.use(
+//   session({
+//     secret: process.env.SESSION_KEY,
+//     resave: false, // don't save session if unmodified
+//     saveUninitialized: false, // don't create session until something stored
+//   })
+// );
+
 server.use(
   session({
     secret: process.env.SESSION_KEY,
-    resave: false, // don't save session if unmodified
-    saveUninitialized: false, // don't create session until something stored
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      sameSite: "none", // ક્રોસ-ડોમેન માટે
+      secure: true,    // HTTPS માટે
+    }
   })
 );
 
 server.use(passport.authenticate("session"));
 
+// server.use(
+//   cors({
+//     exposedHeaders: ["X-Total-Count"],
+//   })
+// );
 server.use(
   cors({
+    origin: "https://tamaru-frontend.vercel.app", // અહીં તમારા ફ્રન્ટએન્ડની વેરસેલ લિંક મૂકો
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true, // કૂકીઝ અને સેશન માટે આ જરૂરી છે
     exposedHeaders: ["X-Total-Count"],
   })
 );
