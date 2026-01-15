@@ -16,7 +16,7 @@ export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
       //const response = await fetch("/auth/login", {
-      // આ ફ્રન્ટએન્ડની લિંક છે, જે ખોટી છે
+      
 const response = await fetch('https://ecommerce-backend-omega-liard.vercel.app/auth/login', { 
         method: "POST",
         body: JSON.stringify(loginInfo),
@@ -39,7 +39,7 @@ const response = await fetch('https://ecommerce-backend-omega-liard.vercel.app/a
 export function checkAuth() {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/auth/check");
+      const response = await fetch("https://ecommerce-backend-omega-liard.vercel.app/auth/check");
       if (response.ok) {
         const data = await response.json();
 
