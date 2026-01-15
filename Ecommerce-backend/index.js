@@ -90,8 +90,8 @@ server.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      sameSite: "none", // ક્રોસ-ડોમેન માટે
-      secure: true,    // HTTPS માટે
+      sameSite: "none", 
+      secure: true,    
     }
   })
 );
@@ -105,7 +105,7 @@ server.use(passport.authenticate("session"));
 // );
 server.use(
   cors({
-    origin: "https://tamaru-frontend.vercel.app", // અહીં તમારા ફ્રન્ટએન્ડની વેરસેલ લિંક મૂકો
+    origin: "https://ecommerce-frontend-delta-silk.vercel.app", 
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true, // કૂકીઝ અને સેશન માટે આ જરૂરી છે
     exposedHeaders: ["X-Total-Count"],
