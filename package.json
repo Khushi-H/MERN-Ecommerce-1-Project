@@ -2,7 +2,16 @@
   "name": "mern-ecommerce-root",
   "version": "1.0.0",
   "scripts": {
-    "install": "cd Ecommerce-frontend && npm install",
-    "build": "cd Ecommerce-frontend && npm run build"
+    "build": "cd Ecommerce-frontend && npm install && npm run build"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.0.0",
+    "dotenv": "^16.0.0",
+    "cors": "^2.8.5",
+    "cookie-parser": "^1.4.6",
+    "passport": "^0.6.0",
+    "jsonwebtoken": "^9.0.0",
+    "bcryptjs": "^2.4.3"
   }
 }
