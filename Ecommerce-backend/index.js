@@ -107,7 +107,7 @@ server.use("/products", isAuth(), productsRouter.router); // we can also use jwt
 server.use("/categories", isAuth(), categoriesRouter.router);
 server.use("/brands", isAuth(), brandsRouter.router);
 server.use("/users", isAuth(), usersRouter.router);
-server.use("/auth", authRouter.router);
+server.use("/api/auth", authRouter.router);
 server.use("/cart", isAuth(), cartRouter.router);
 server.use("/orders", isAuth(), ordersRouter.router);
 // this line we add to make react router work in case of other routes doesnt match
