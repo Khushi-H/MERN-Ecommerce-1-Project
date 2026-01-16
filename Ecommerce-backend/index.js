@@ -76,41 +76,24 @@ opts.secretOrKey = process.env.JWT_SECRET_KEY;
 //middlewares
 server.use(express.static(path.resolve(__dirname, "build")));
 server.use(cookieParser());
-// server.use(
-//   session({
-//     secret: process.env.SESSION_KEY,
-//     resave: false, // don't save session if unmodified
-//     saveUninitialized: false, // don't create session until something stored
-//   })
-// );
-
 server.use(
   session({
     secret: process.env.SESSION_KEY,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      sameSite: "none", 
-      secure: true,    
-    }
+    resave: false, // don't save session if unmodified
+    saveUninitialized: false, // don't create session until something stored
   })
 );
+
+
 
 server.use(passport.authenticate("session"));
 
-// server.use(
-//   cors({
-//     exposedHeaders: ["X-Total-Count"],
-//   })
-// );
 server.use(
   cors({
-    origin: "https://ecommerce-frontend-delta-silk.vercel.app", 
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true, // કૂકીઝ અને સેશન માટે આ જરૂરી છે
     exposedHeaders: ["X-Total-Count"],
   })
 );
+
 server.use(express.json()); // to parser req.body
 server.use("/products", isAuth(), productsRouter.router); // we can also use jwt token for client-only auth
 server.use("/categories", isAuth(), categoriesRouter.router);
