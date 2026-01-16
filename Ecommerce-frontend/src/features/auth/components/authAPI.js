@@ -15,9 +15,9 @@ export function createUser(userData) {
 export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      //const response = await fetch("/auth/login", {
+      const response = await fetch("/auth/login", {
       
-const response = await fetch('https://ecommerce-backend-omega-liard.vercel.app/auth/login', { 
+
         method: "POST",
         body: JSON.stringify(loginInfo),
         headers: { "content-type": "application/json" },
@@ -39,7 +39,7 @@ const response = await fetch('https://ecommerce-backend-omega-liard.vercel.app/a
 export function checkAuth() {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("https://ecommerce-backend-omega-liard.vercel.app/auth/check");
+      const response = await fetch("/auth/check");
       if (response.ok) {
         const data = await response.json();
 
