@@ -1,7 +1,8 @@
 {
-  "name": "mern-ecommerce",
+  "name": "mern-ecommerce-root",
   "version": "1.0.0",
   "scripts": {
-    "build": "cd Ecommerce-frontend && npm install && npm run build"
+    "install": "cd Ecommerce-frontend && npm install",
+    "build": "cd Ecommerce-frontend && npm run build"
   }
 }
