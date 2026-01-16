@@ -1,14 +1,13 @@
 {
-  "builds": [
+  "version": 2,
+  "rewrites": [
     {
-      "src": "index.js",
-      "use": "@vercel/node"
+      "source": "/api/(.*)",
+      "destination": "/Ecommerce-backend/index.js"
     },
     {
-      "src": "build/**",
-      "use": "@vercel/static"
+      "source": "/(.*)",
+      "destination": "/Ecommerce-frontend/build/index.html"
     }
-  ],
-
-  "rewrites": [{ "source": "/(.*)", "destination": "index.js" }]
+  ]
 }
