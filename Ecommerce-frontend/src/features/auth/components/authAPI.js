@@ -15,7 +15,7 @@ export function createUser(userData) {
 export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/auth/login", {
+      const response = await fetch("/api/auth/login", {
       
 
         method: "POST",
