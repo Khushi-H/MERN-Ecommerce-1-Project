@@ -6,6 +6,7 @@ export function createUser(userData) {
       method: "POST",
       body: JSON.stringify(userData),
       headers: { "content-type": "application/json" },
+      credentials: "include"
     });
     const data = await response.json();
     resolve({ data });
@@ -21,6 +22,7 @@ export function loginUser(loginInfo) {
         method: "POST",
         body: JSON.stringify(loginInfo),
         headers: { "content-type": "application/json" },
+        credentials: "include"
       });
       if (response.ok) {
         const data = await response.json();
@@ -39,7 +41,7 @@ export function loginUser(loginInfo) {
 export function checkAuth() {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/check");
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/check",{credentials: "include"});
       if (response.ok) {
         const data = await response.json();
 
@@ -58,7 +60,7 @@ export function checkAuth() {
 export function signOut(userId) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/logout");
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/logout",{credentials: "include"});
       if (response.ok) {
         resolve({ data: "success" });
       } else {
@@ -79,6 +81,7 @@ export function resetPasswordRequest(email) {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: { "content-type": "application/json" },
+        credentials: "include"
       });
       if (response.ok) {
         const data = await response.json();
@@ -101,6 +104,7 @@ export function resetPassword(data) {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "content-type": "application/json" },
+        credentials: "include"
       });
       if (response.ok) {
         const data = await response.json();
