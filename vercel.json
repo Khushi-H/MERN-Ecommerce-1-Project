@@ -1,13 +1,26 @@
 {
   "version": 2,
-  "rewrites": [
+  "builds": [
+    { "src": "Ecommerce-backend/index.js", "use": "@vercel/node" },
+    { "src": "Ecommerce-frontend/package.json", "use": "@vercel/static-build" }
+  ],
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/Ecommerce-backend/index.js"
+      "src": "/api/(.*)",
+      "dest": "/Ecommerce-backend/index.js",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
     },
     {
-      "source": "/(.*)",
-      "destination": "/Ecommerce-frontend/build/index.html"
+      "src": "/static/(.*)",
+      "dest": "/Ecommerce-frontend/static/$1"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/Ecommerce-frontend/manifest.json"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/Ecommerce-frontend/index.html"
     }
   ]
 }
