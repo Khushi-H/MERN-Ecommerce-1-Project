@@ -1,23 +1,17 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "Ecommerce-backend/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "Ecommerce-frontend/package.json",
-      "use": "@vercel/static-build"
-    }
-  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
       "destination": "/Ecommerce-backend/index.js"
     },
     {
+      "source": "/static/(.*)",
+      "destination": "/Ecommerce-frontend/build/static/$1"
+    },
+    {
       "source": "/(.*)",
-      "destination": "/Ecommerce-frontend/index.html"
+      "destination": "/Ecommerce-frontend/build/index.html"
     }
   ]
 }
