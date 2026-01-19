@@ -2,7 +2,7 @@ import { isRejected } from "@reduxjs/toolkit";
 
 export function createUser(userData) {
   return new Promise(async (resolve) => {
-    const response = await fetch("/api/auth/signup", {
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/signup", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: { "content-type": "application/json" },
@@ -15,7 +15,7 @@ export function createUser(userData) {
 export function loginUser(loginInfo) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/login", {
       
 
         method: "POST",
@@ -39,7 +39,7 @@ export function loginUser(loginInfo) {
 export function checkAuth() {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/api/auth/check");
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/check");
       if (response.ok) {
         const data = await response.json();
 
@@ -58,7 +58,7 @@ export function checkAuth() {
 export function signOut(userId) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/api/auth/logout");
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/logout");
       if (response.ok) {
         resolve({ data: "success" });
       } else {
@@ -75,7 +75,7 @@ export function signOut(userId) {
 export function resetPasswordRequest(email) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/api/auth/reset-password-request", {
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/reset-password-request", {
         method: "POST",
         body: JSON.stringify({ email }),
         headers: { "content-type": "application/json" },
@@ -97,7 +97,7 @@ export function resetPasswordRequest(email) {
 export function resetPassword(data) {
   return new Promise(async (resolve, reject) => {
     try {
-      const response = await fetch("/api/auth/reset-password", {
+      const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/auth/reset-password", {
         method: "POST",
         body: JSON.stringify(data),
         headers: { "content-type": "application/json" },
