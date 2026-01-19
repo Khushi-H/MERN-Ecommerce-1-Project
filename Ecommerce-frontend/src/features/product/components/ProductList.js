@@ -340,7 +340,11 @@ export default function ProductList() {
               ></DesktopFilter>
               {/* Product grid */}
               <div className="lg:col-span-3">
-                <ProductGrid products={products} status={status}></ProductGrid>
+                //<ProductGrid products={products} status={status}></ProductGrid>
+                <ProductGrid 
+  products={products?.products || []}
+  status={status} 
+></ProductGrid>
               </div>
               {/* Product grid end */}
             </div>
@@ -350,7 +354,7 @@ export default function ProductList() {
             page={page}
             setPage={setPage}
             handlePage={handlePage}
-            //totalItems={totalItems}
+            totalItems={totalItems}
           ></Pagination>
         </main>
       </div>
