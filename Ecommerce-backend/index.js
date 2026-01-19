@@ -96,7 +96,7 @@ server.use(passport.authenticate("session"));
 // );
 server.use(
   cors({
-    origin: 'https://mern-ecommerce-frontend-project-v2id.onrender.com/', 
+    origin: 'https://mern-ecommerce-frontend-project-v2id.onrender.com', 
     credentials: true,
     exposedHeaders: ["X-Total-Count"],
   })
