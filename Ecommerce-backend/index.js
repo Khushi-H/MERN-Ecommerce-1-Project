@@ -75,7 +75,7 @@ opts.jwtFromRequest = cookieExtractor;
 opts.secretOrKey = process.env.JWT_SECRET_KEY;
 //middlewares
 //server.use(express.static(path.resolve(__dirname, "build")));
-server.use(express.static(path.resolve(__dirname, "..", "Ecommerce-frontend", "build")));
+//server.use(express.static(path.resolve(__dirname, "..", "Ecommerce-frontend", "build")));
 server.use(cookieParser());
 server.use(
   session({
@@ -114,9 +114,9 @@ server.use("/api/orders", isAuth(), ordersRouter.router);
 // server.get("*", (req, res) =>
 //   res.sendFile(path.resolve("build", "index.html"))
 // );
-server.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "..", "Ecommerce-frontend", "build", "index.html"))
-);
+// server.get("*", (req, res) =>
+//   res.sendFile(path.resolve(__dirname, "..", "Ecommerce-frontend", "build", "index.html"))
+// );
 
 //Passport Stratigies
 passport.use(
