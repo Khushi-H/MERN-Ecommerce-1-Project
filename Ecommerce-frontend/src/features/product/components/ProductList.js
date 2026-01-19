@@ -6,7 +6,7 @@ import {
   fetchCategoryAsync,
   fetchProductsByFiltersAsync,
   selectAllProducts,
-  //selectTotalItems,
+  selectTotalItems,
   selectBrands,
   selectCategory,
   selectProductListStatus,
@@ -45,6 +45,7 @@ export default function ProductList() {
   const brands = useSelector(selectBrands);
   const category = useSelector(selectCategory);
   const status = useSelector(selectProductListStatus);
+  const totalItems = useSelector(selectTotalItems); 
   const filters = [
     {
       id: "category",
