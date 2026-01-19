@@ -103,13 +103,13 @@ server.use(
 );
 
 server.use(express.json()); // to parser req.body
-server.use("/products", isAuth(), productsRouter.router); // we can also use jwt token for client-only auth
-server.use("/categories", isAuth(), categoriesRouter.router);
-server.use("/brands", isAuth(), brandsRouter.router);
-server.use("/users", isAuth(), usersRouter.router);
+server.use("/api/products", isAuth(), productsRouter.router); // we can also use jwt token for client-only auth
+server.use("/api/categories", isAuth(), categoriesRouter.router);
+server.use("/api/brands", isAuth(), brandsRouter.router);
+server.use("/api/users", isAuth(), usersRouter.router);
 server.use("/api/auth", authRouter.router);
-server.use("/cart", isAuth(), cartRouter.router);
-server.use("/orders", isAuth(), ordersRouter.router);
+server.use("/api/cart", isAuth(), cartRouter.router);
+server.use("/api/orders", isAuth(), ordersRouter.router);
 // this line we add to make react router work in case of other routes doesnt match
 // server.get("*", (req, res) =>
 //   res.sendFile(path.resolve("build", "index.html"))
