@@ -4,6 +4,7 @@ export function addToCart(item) {
       method: "POST",
       body: JSON.stringify(item),
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await response.json();
 
@@ -13,7 +14,7 @@ export function addToCart(item) {
 
 export function fetchItemsByUserId() {
   return new Promise(async (resolve) => {
-    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/cart");
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/cart",{credentials: "include"});
     const data = await response.json();
     resolve({ data });
   });
@@ -25,6 +26,7 @@ export function updateCart(update) {
       method: "PATCH",
       body: JSON.stringify(update),
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await response.json();
 
@@ -36,6 +38,7 @@ export function deleteItemFromCart(itemId) {
     const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/cart/" + itemId, {
       method: "DELETE",
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await response.json();
 
