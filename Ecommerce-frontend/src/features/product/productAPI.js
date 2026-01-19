@@ -1,6 +1,7 @@
 export function fetchProductById(id) {
   return new Promise(async (resolve) => {
-    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/products/" + id);
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/products/" + id,{credentials: "include"});
+    
     const data = await response.json();
     resolve({ data });
   });
@@ -11,6 +12,7 @@ export function createProduct(product) {
       method: "POST",
       body: JSON.stringify(product),
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await response.json();
     resolve({ data });
@@ -22,6 +24,7 @@ export function updateProduct(update) {
       method: "PATCH",
       body: JSON.stringify(update),
       headers: { "content-type": "application/json" },
+      credentials: "include"
     });
     const data = await response.json();
 
@@ -53,18 +56,19 @@ export function fetchProductsByFilters(filter, sort, pagination, admin) {
   }
 
   return new Promise(async (resolve) => {
-    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/products?" + queryString);
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/products?" + queryString,{credentials: "include"});
+   
     const data = await response.json();
 
-    resolve({ data });
-    // const totalItems = await response.headers.get("X-Total-Count");
-    // resolve({ data: { products: data, totalItems: +totalItems } });
+    
+    const totalItems = await response.headers.get("X-Total-Count");
+    resolve({ data: { products: data, totalItems: +totalItems } });
   });
 }
 
 export function fetchCategory() {
   return new Promise(async (resolve) => {
-    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/categories");
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/categories",{credentials: "include"});
     const data = await response.json();
     resolve({ data });
   });
@@ -72,7 +76,7 @@ export function fetchCategory() {
 
 export function fetchBrands() {
   return new Promise(async (resolve) => {
-    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/brands");
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/brands",{credentials: "include"});
     const data = await response.json();
     resolve({ data });
   });
