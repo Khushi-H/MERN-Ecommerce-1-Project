@@ -28,6 +28,8 @@ exports.createUser = async (req, res) => {
             res.cookie("jwt", token, {
               expires: new Date(Date.now() + 3600000),
               httpOnly: true,
+              secure: true,      
+              sameSite: "none",
             });
 
             res.status(201).json({ id: doc.id, role: doc.role });
@@ -45,6 +47,8 @@ exports.loginUser = async (req, res) => {
   res.cookie("jwt", user.token, {
     expires: new Date(Date.now() + 3600000),
     httpOnly: true,
+    secure: true,
+    sameSite: "none",
   });
 
   res.status(201).json({ id: user.id, role: user.role });
@@ -53,6 +57,8 @@ exports.logout = async (req, res) => {
   res.cookie("jwt", null, {
     expires: new Date(Date.now()),
     httpOnly: true,
+    secure: true,
+    sameSite: "none",
   });
 
   res.sendStatus(200);
@@ -73,8 +79,8 @@ exports.resetPasswordRequest = async (req, res) => {
     await user.save();
 
     // Also set token in email
-    const resetPageLink =
-      "http://localhost:3000/reset-password?token=" + token + "&email=" + email;
+   
+    const resetPageLink = "https://mern-ecommerce-frontend-project-v2id.onrender.com/reset-password?token=" + token + "&email=" + email;
     const subject = "reset password for e-commerce";
     const html = `<p>Click <a href='${resetPageLink}'>here</a> to Reset Password</p>`;
 
