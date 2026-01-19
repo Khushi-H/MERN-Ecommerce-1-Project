@@ -16,7 +16,7 @@
       "destination": "/Ecommerce-backend/index.js"
     },
     {
-      "source": "/((?!api).*)",
+      "source": "/(.*)",
       "destination": "/Ecommerce-frontend/build/index.html"
     }
   ]
