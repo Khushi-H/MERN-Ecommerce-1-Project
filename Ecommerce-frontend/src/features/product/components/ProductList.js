@@ -244,7 +244,7 @@ export default function ProductList() {
 
   useEffect(() => {
     const pagination = { _page: page, _per_page: ITEMS_PER_PAGE };
-    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination }));
+    dispatch(fetchProductsByFiltersAsync({ filter, sort, pagination,admin: true }));
   }, [dispatch, filter, sort, page]);
   // useEffect(() => {
   //   setPage(1);
@@ -343,7 +343,8 @@ export default function ProductList() {
               <div className="lg:col-span-3">
               {/*<ProductGrid products={products} status={status}></ProductGrid>*/}
                 <ProductGrid 
-  products={products?.products || []}
+  //products={products?.products || []}
+products={products || []}
   status={status} 
 ></ProductGrid>
               </div>
