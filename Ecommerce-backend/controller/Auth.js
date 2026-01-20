@@ -70,30 +70,67 @@ exports.checkAuth = async (req, res) => {
     res.sendStatus(401);
   }
 };
-exports.resetPasswordRequest = async (req, res) => {
-  const email = req.body.email;
-  const user = await User.findOne({ email: email });
-  if (user) {
-    const token = crypto.randomBytes(48).toString("hex");
-    user.resetPasswordToken = token;
-    await user.save();
+// exports.resetPasswordRequest = async (req, res) => {
+//   const email = req.body.email;
+//   const user = await User.findOne({ email: email });
+//   if (user) {
+//     const token = crypto.randomBytes(48).toString("hex");
+//     user.resetPasswordToken = token;
+//     await user.save();
 
-    // Also set token in email
+//     // Also set token in email
    
-    const resetPageLink = "https://mern-ecommerce-frontend-project-v2id.onrender.com/reset-password?token=" + token + "&email=" + email;
-    const subject = "reset password for e-commerce";
-    const html = `<p>Click <a href='${resetPageLink}'>here</a> to Reset Password</p>`;
+//     const resetPageLink = "https://mern-ecommerce-frontend-project-v2id.onrender.com/reset-password?token=" + token + "&email=" + email;
+//     const subject = "reset password for e-commerce";
+//     const html = `<p>Click <a href='${resetPageLink}'>here</a> to Reset Password</p>`;
 
-    // lets send email and a token in the mail body so we can verify that user has clicked right link
+//     // lets send email and a token in the mail body so we can verify that user has clicked right link
 
-    if (email) {
-      const response = await sendMail({ to: email, subject, html });
-      res.json(response);
+//     if (email) {
+//       const response = await sendMail({ to: email, subject, html });
+//       res.json(response);
+//     } else {
+//       res.sendStatus(400);
+//     }
+//   } else {
+//     res.sendStatus(400);
+//   }
+// };
+
+exports.resetPasswordRequest = async (req, res) => {
+  try {
+    const email = req.body.email;
+    console.log("Request received for email:", email); // Debug log
+
+    const user = await User.findOne({ email: email });
+    if (user) {
+      const token = crypto.randomBytes(48).toString("hex");
+      user.resetPasswordToken = token;
+      await user.save();
+
+      const resetPageLink = "https://mern-ecommerce-frontend-project-v2id.onrender.com/reset-password?token=" + token + "&email=" + email;
+      const subject = "reset password for e-commerce";
+      const html = `<p>Click <a href='${resetPageLink}'>here</a> to Reset Password</p>`;
+
+      if (email) {
+        // અહીં sendMail ને try-catch માં લેવું જરૂરી છે
+        try {
+          const response = await sendMail({ to: email, subject, html });
+          return res.json(response); 
+        } catch (mailError) {
+          console.log("Error in sending email:", mailError);
+          return res.status(500).json({ message: "Email sending failed" });
+        }
+      } else {
+        return res.status(400).json({ message: "Email is missing in request" });
+      }
     } else {
-      res.sendStatus(400);
+      console.log("User not found in DB");
+      return res.status(400).json({ message: "User not found with this email" });
     }
-  } else {
-    res.sendStatus(400);
+  } catch (err) {
+    console.log("Global Server Error:", err);
+    return res.status(500).json(err);
   }
 };
 
