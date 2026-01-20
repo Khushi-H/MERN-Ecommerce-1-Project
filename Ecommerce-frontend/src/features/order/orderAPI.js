@@ -4,6 +4,7 @@ export function createOrder(order) {
       method: "POST",
       body: JSON.stringify(order),
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await response.json();
 
@@ -16,6 +17,7 @@ export function updateOrder(update) {
       method: "PATCH",
       body: JSON.stringify(update),
       headers: { "content-type": "application/json" },
+      credentials: "include",
     });
     const data = await response.json();
 
@@ -30,7 +32,7 @@ export function fetchAllOrders(pagination) {
   }
 
   return new Promise(async (resolve) => {
-    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/orders?" + queryString);
+    const response = await fetch("https://mern-ecommerce-backend-project.onrender.com/api/orders?" + queryString,{ credentials: "include"});
     const data = await response.json();
     resolve({ data });
   });
