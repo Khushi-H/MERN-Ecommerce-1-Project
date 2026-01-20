@@ -64,13 +64,15 @@ exports.fetchAllOrders = async (req, res) => {
   // pagination = {_page:1,_limit=10}
 
   let query = Order.find({ deleted: { $ne: true } });
-  let totalOrdersQuery = Order.find({ deleted: { $ne: true } });
+  //let totalOrdersQuery = Order.find({ deleted: { $ne: true } });
 
   // if (req.query._sort) {
   //   query = query.sort(req.query._sort);
   // }
 
-  const totalDocs = await totalOrdersQuery.count().exec();
+  //const totalDocs = await totalOrdersQuery.count().exec();
+  const totalDocs = await Order.countDocuments({ deleted: { $ne: true } });
+    res.set('X-Total-Count', totalDocs);
   console.log({ totalDocs });
 
   // if (req.query._page && req.query._per_page) {
@@ -81,7 +83,7 @@ exports.fetchAllOrders = async (req, res) => {
 
   try {
     const docs = await query.exec();
-    res.set(totalDocs);
+    //res.set(totalDocs);
     res.status(200).json(docs);
   } catch (err) {
     res.status(400).json(err);
