@@ -341,7 +341,7 @@ export default function ProductList() {
               ></DesktopFilter>
               {/* Product grid */}
               <div className="lg:col-span-3">
-                //<ProductGrid products={products} status={status}></ProductGrid>
+              {/*<ProductGrid products={products} status={status}></ProductGrid>*/}
                 <ProductGrid 
   products={products?.products || []}
   status={status} 
