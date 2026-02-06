@@ -88,7 +88,7 @@ export function resetPasswordRequest(email) {
 
         resolve({ data });
       } else {
-        const error = await response.text();
+        const error = await response.json();
 
         reject(error);
       }
@@ -111,7 +111,7 @@ export function resetPassword(data) {
 
         resolve({ data });
       } else {
-        const error = await response.text();
+        const error = await response.json();
 
         reject(error);
       }
