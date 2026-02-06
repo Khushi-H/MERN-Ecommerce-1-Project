@@ -1,11 +1,10 @@
 const passport = require("passport");
 const nodemailer = require("nodemailer");
-//Emails
+
 
 let transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false, // Use `true` for port 465, `false` for all other ports
+ service: "gmail",
+ 
   auth: {
     user: "hareshparekh90@gmail.com",
     pass: process.env.MAIL_PASSWORD,
@@ -28,16 +27,20 @@ exports.cookieExtractor = function (req) {
 };
 
 exports.sendMail = async function ({ to, subject, text, html }) {
-  let info = await transporter.sendMail({
-    from: '"E-commerce" <hareshparekh90@gmail.com>', // sender address
-    to,
-    subject,
-    text,
-    html,
-  });
-  return info;
+  try {
+    let info = await transporter.sendMail({
+      from: '"E-commerce" <hareshparekh90@gmail.com>',
+      to,
+      subject,
+      text,
+      html,
+    });
+    return info;
+  } catch (error) {
+    console.error("Nodemailer Error: ", error);
+    throw error; 
+  }
 };
-
 exports.invoiceTemplate = function (order) {
   return `<!DOCTYPE html>
     <html>
