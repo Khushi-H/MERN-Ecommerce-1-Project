@@ -29,7 +29,7 @@ exports.cookieExtractor = function (req) {
 
 exports.sendMail = async function ({ to, subject, text, html }) {
   let info = await transporter.sendMail({
-    from: '"E-commerce" <parekhkhushi2000@gmail.com>', // sender address
+    from: '"E-commerce" <hareshparekh90@gmail.com>', // sender address
     to,
     subject,
     text,
